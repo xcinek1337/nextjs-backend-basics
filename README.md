@@ -1,36 +1,35 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+[![My Skills](https://skillicons.dev/icons?i=next,mongo,react)](https://skillicons.dev)
+## Promptopia - a place to expand your horizons
+
+### About The Project
+Promptopia - an application for sharing creative prompts to artificial intelligence, where users can share their ideas and pass them on as inspiration.The list of queries has the ability to filter by tags as well as keywords, I think everyone will find something for themselves. For logging in, there is a next/auth connection with google provider.The project has several pages like user profile, prompt creation. The application also has a backend, which connects the application to the database. Data is stored in mongoDB
+### What I've learned from this
+Another project where I'm practicing writing queries to the api (CRUD actions) that connect applications to the "backened" and learning how to compose nested routes in nextJS, including creating dynamic routes and extracting state from "params" + the trick of feeding state via url
+
 
 ## Getting Started
+### Prerequisites
+To get a local copy of this project up and running, follow these steps:
+1. Create a free database [MongoDB](<https://www.mongodb.com/>)
+2. Get a free API key from [Google](<https://console.cloud.google.com/>)
 
-First, run the development server:
 
+we place the sercrets in the .env file under the name 
+ - MONGODB_URI= mongodbKEY
+ - GOOGLE_CLIENT_SECRET= googleKEY 
+ - GOOGLE_ID = googleID 
+AND PASS THIS ALSO
+- NEXTAUTH_URL=http://localhost:3000
+- NEXTAUTH_URL_INTERNAL=http://localhost:3000
+- NEXTAUTH_SECRET=mfr1NhRoD7sDIKCEbuspkJjyFZgHgH+pkJIBbET+WT8=
+
+3. Clone repository, step by step
 ```bash
+git clone https://github.com/xcinek1337/promptopia
+cd promptopia
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Acknowledgements
+This project was created as part of a [YouTube Tutorial](<https://www.youtube.com/watch?v=wm5gMKuwSYk&t=899s>). I would like to thanks the autor, and invite you to invite you  to struggle with nextJS crash course. huge powerful framework
