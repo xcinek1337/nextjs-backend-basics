@@ -35,8 +35,9 @@ const CreatePrompt = () => {
 			} finally {
 				setSubmitting(false);
 			}
+		} else {
+			signIn();
 		}
-		signIn();
 	};
 
 	return (
