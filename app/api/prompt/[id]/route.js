@@ -2,11 +2,10 @@ import { connectToDB } from '@utils/database';
 import Prompt from '@models/prompt';
 
 // GET (read)
-export const GET = async (req, res, { params }) => {
+export const GET = async (req, { params }) => {
 	try {
 		await connectToDB();
 		const prompt = await Prompt.findById(params.id).populate('creator');
-
 		if (!prompt) {
 			return new Response('Prompt not found', { status: 404 });
 		}
@@ -29,14 +28,28 @@ export const PATCH = async (req, { params }) => {
 		if (!existingPrompt) {
 			return new Response('Prompt not found', { status: 404 });
 		}
+
 		existingPrompt.prompt = prompt;
 		existingPrompt.tag = tag;
-		await Prompt.save();
-		return new Response(JSON.stringify(existingPrompt), { status: 200 });
+
+		await existingPrompt.save();
+		return new Response("Successfully updated the Prompts", { status: 200 });
 	} catch (error) {
-        console.log(error);
-        return new Response(('failed to update prompt'), { status: 500 });
-    }
+		console.log(error);
+		return new Response('failed to update prompt', { status: 500 });
+	}
 };
 
 // DELETE (delete)
+
+export const DELETE = async (req, { params }) => {
+	try {
+		await connectToDB();
+
+		await Prompt.findByIdAndDelete(params.id);  
+		return new Response('promt deleted successfully', { status: 200 });
+	} catch (error) {
+		console.log(error);
+		return new Response('failed to delete prompt', { status: 500 });
+	}
+};

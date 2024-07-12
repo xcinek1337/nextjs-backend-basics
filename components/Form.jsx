@@ -48,7 +48,7 @@ const Form = ({ type, post, setPost, submitting, handleSubmit }) => {
 						type='submit'
 						disabled={submitting}
 					>
-						Create
+						{type}
 					</button>
 				</div>
 			</form>
