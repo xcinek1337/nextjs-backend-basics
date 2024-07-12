@@ -19,10 +19,12 @@ const PromptCardList = ({ data, handleTagClick }) => {
 };
 
 const Feed = () => {
-	const [searchText, setsearchText] = useState('');
 	const [posts, setPosts] = useState([]);
 
-	const handleSearchChange = (e) => {};
+	// search states
+	const [searchText, setsearchText] = useState('');
+	const [searchTimeout, setSearchTimeout] = useState(null);
+	const [filteredPosts, setFilteredPosts] = useState([]);
 
 	useEffect(() => {
 		const fetchPosts = async () => {
@@ -30,9 +32,37 @@ const Feed = () => {
 			const data = await response.json();
 
 			setPosts(data);
+			setFilteredPosts(data);
 		};
 		fetchPosts();
 	}, []);
+
+	const filterPrompts = (searchText) => {
+		const regex = new RegExp(searchText, 'i'); // i to flaga ktora ingoruje wielkie litery
+		return posts.filter((post) => regex.test(post.creator.username) || regex.test(post.prompt) || regex.test(post.tag));
+	};
+	
+	const handleSearchChange = (e) => {
+		//z kazdym klinkieciem w klawiature aktywuje sie i clear timeout i setTimeout, dopiero gdy nie klikniemy przez 300ms to wykona sie setTimeout - sprytny debounce
+		clearTimeout(searchTimeout);
+		setsearchText(e.target.value);
+
+		setSearchTimeout(
+			setTimeout(() => {
+				const filtered = filterPrompts(e.target.value);
+				console.log(filtered);
+				setFilteredPosts(filtered);
+			}, 300)
+		);
+	};
+
+	const handleTagClick = (tag) => {
+		setsearchText(tag);
+
+		const filtered = filterPrompts(tag);
+		setFilteredPosts(filtered);
+	};
+
 	return (
 		<section className='feed'>
 			<form action='relative w-full flex-center'>
@@ -47,8 +77,8 @@ const Feed = () => {
 			</form>
 
 			<PromptCardList
-				data={posts}
-				handleTagClick={() => {}}
+				data={filteredPosts}
+				handleTagClick={handleTagClick}
 			/>
 		</section>
 	);
