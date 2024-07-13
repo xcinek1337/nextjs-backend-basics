@@ -1,20 +1,23 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 
+import Loading from '@app/loading';
 import PromptCard from './PromptCard';
 const PromptCardList = ({ data, handleTagClick }) => {
 	return (
-		<div className='mt-16 prompt_layout'>
-			{data.map((post) => {
-				return (
-					<PromptCard
-						key={post._id}
-						post={post}
-						handleTagClick={handleTagClick}
-					/>
-				);
-			})}
-		</div>
+		<Suspense fallback={<Loading />}>
+			<div className='mt-16 prompt_layout'>
+				{data.map((post) => {
+					return (
+						<PromptCard
+							key={post._id}
+							post={post}
+							handleTagClick={handleTagClick}
+						/>
+					);
+				})}
+			</div>
+		</Suspense>
 	);
 };
 
@@ -41,7 +44,7 @@ const Feed = () => {
 		const regex = new RegExp(searchText, 'i'); // i to flaga ktora ingoruje wielkie litery
 		return posts.filter((post) => regex.test(post.creator.username) || regex.test(post.prompt) || regex.test(post.tag));
 	};
-	
+
 	const handleSearchChange = (e) => {
 		//z kazdym klinkieciem w klawiature aktywuje sie i clear timeout i setTimeout, dopiero gdy nie klikniemy przez 300ms to wykona sie setTimeout - sprytny debounce
 		clearTimeout(searchTimeout);

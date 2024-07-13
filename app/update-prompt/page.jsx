@@ -1,12 +1,13 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 
 import Form from '@components/Form';
+import Loading from '@app/loading';
 
 const EditPrompt = () => {
-    const router = useRouter()
+	const router = useRouter();
 	const searcParams = useSearchParams();
 	const [submitting, setSubmitting] = useState(false);
 	const [post, setPost] = useState({ prompt: '', tag: '' });
@@ -47,13 +48,15 @@ const EditPrompt = () => {
 	};
 
 	return (
-		<Form
-			type='Edit'
-			post={post}
-			setPost={setPost}
-			submitting={submitting}
-			handleSubmit={createPrompt}
-		/>
+		<Suspense fallback={<Loading />}>
+			<Form
+				type='Edit'
+				post={post}
+				setPost={setPost}
+				submitting={submitting}
+				handleSubmit={createPrompt}
+			/>
+		</Suspense>
 	);
 };
 

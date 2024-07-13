@@ -1,5 +1,6 @@
 import Feed from '@components/Feed';
-import React from 'react';
+import React, { Suspense } from 'react';
+import Loading from './loading';
 
 const Home = () => {
 	return (
@@ -13,7 +14,9 @@ const Home = () => {
 				Promptopia is a an open-source AI prompting tool for modern wordl to sicvocer, create and share creative prompts
 			</p>
 
-			<Feed />
+			<Suspense fallback={<Loading />}>
+				<Feed />
+			</Suspense>
 		</section>
 	);
 };
