@@ -1,3 +1,4 @@
+'use client';
 import Link from 'next/link';
 import { useState } from 'react';
 
@@ -13,11 +14,13 @@ const Form = ({ type, post, setPost, submitting, handleSubmit }) => {
 
 	const onSubmit = (e) => {
 		e.preventDefault();
+		console.log(e);
+
 		const newErrors = validate();
 		if (Object.keys(newErrors).length > 0) {
 			setErrors(newErrors);
 		} else {
-			handleSubmit();
+			handleSubmit(e);
 		}
 	};
 
